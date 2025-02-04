@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        a {
+            display: block;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 18px;
+            color: blue;
+            text-decoration: none;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Space between cards */
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            width: 250px; /* Adjust width as needed */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s; /* Smooth hover effect */
+        }
+        .card:hover {
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Products</h1>
+    <a href="{{ url_for('add_product') }}">Add New Product</a>
+    
+    <div class="container">
+        {% for product in products %}
+        <div class="card">
+            <h2>{{ product.name }}</h2>
+            {% if product.image %}
+            <img src="{{ product.image }}" alt="{{ product.name }}" style="width:100px;height:auto;">
+            {% else %}
+                <p>No Image Available</p>
+            {% endif %}
+            <p>Cost: ${{ product.cost }}</p>
+            <p>Quantity: {{ product.quantity }}</p>
+            <div>
+                <a href="{{ url_for('edit_product', product_id=product.id) }}">
+                    <button>Edit</button>
+                </a>
+                <form method="POST" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

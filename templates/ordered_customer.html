@@ -1,0 +1,28 @@
+<!-- customer_orders.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Orders</title>
+</head>
+<body>
+    <h1>Your Customer Orders</h1>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Customer Mobile</th>
+            <th>Quantity Ordered</th>
+            <th>Order Date</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.product.name }}</td>
+            <td>{{ order.customer_mobile }}</td>
+            <td>{{ order.quantity_ordered }}</td>
+            <td>{{ order.order_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('farmer_dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

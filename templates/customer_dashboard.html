@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background color for contrast */
+        }
+
+        .card {
+            border: 1px solid #dee2e6; /* Card border color */
+            border-radius: 10px; /* Rounded corners */
+            transition: transform 0.2s; /* Animation for hover effect */
+        }
+
+        .card:hover {
+            transform: scale(1.05); /* Slightly enlarge card on hover */
+        }
+
+        .card-img-top {
+            width: 100%; /* Responsive image width */
+            height: 200px; /* Fixed height for images */
+            object-fit: cover; /* Cover the card area */
+            border-top-left-radius: 10px; /* Rounded corners for image */
+            border-top-right-radius: 10px; /* Rounded corners for image */
+        }
+
+        .card-title {
+            font-size: 1.25rem; /* Font size for product title */
+            font-weight: bold; /* Bold font for emphasis */
+        }
+
+        .card-text {
+            font-size: 1rem; /* Font size for product description */
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background-color: #007bff; /* Primary button color */
+            border: none; /* No border for buttons */
+            border-radius: 5px; /* Rounded button corners */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Available Products</h2>
+        <div class="text-right mb-3">
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">Description: {{ product.description }}</p>
+                        <p class="card-text">Cost: ₹{{ product.cost }}</p>
+                        <p class="card-text">Available Quantity: {{ product.quantity }}</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
